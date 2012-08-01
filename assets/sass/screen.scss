@@ -1,0 +1,23 @@
+@mixin box($amount: 3px){
+	border-radius: $amount;
+	-webkit-border-radius: $amount;
+	-moz-border-radius: $amount;	
+}
+
+$color: red;
+$color2: yellow;
+$size: 8px;
+
+.box {
+	@include box(round($size*10/2+4.25));
+	.inner-box {
+		color: $color;
+	}
+}
+
+.similar-box {
+	@extend .box;
+	.inner-box {
+		color: mix($color,$color2);
+	}
+}
