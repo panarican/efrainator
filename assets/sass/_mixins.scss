@@ -24,10 +24,16 @@
 	border-bottom-left-radius: $bottomLeft; 
 }
  
-@mixin shadow( $off-y, $off-x, $blur, $color){
-	-moz-box-shadow: $off-y $off-x $blur $color;
-	-webkit-box-shadow:  $off-y $off-x $blur $color;
-	box-shadow:  $off-y $off-x $blur $color;
+@mixin shadow( $off-x, $off-y, $blur, $spread, $red, $green, $blue, $alpha){
+	-moz-box-shadow: $off-x $off-y $blur $spread rgba($red, $green, $blue, $alpha);
+	-webkit-box-shadow: $off-x $off-y $blur $spread rgba($red, $green, $blue, $alpha);
+	box-shadow: $off-x $off-y $blur $spread rgba($red, $green, $blue, $alpha);
+}
+
+@mixin inset-shadow( $off-x, $off-y, $blur, $spread, $red, $green, $blue, $alpha){
+	-moz-box-shadow: inset $off-x $off-y $blur $spread rgba($red, $green, $blue, $alpha);
+	-webkit-box-shadow: inset $off-x $off-y $blur $spread rgba($red, $green, $blue, $alpha);
+	box-shadow: inset $off-x $off-y $blur $spread rgba($red, $green, $blue, $alpha);
 }
  
 @mixin gradient($baseColor, $toColor){
@@ -35,10 +41,10 @@
 	background-image: -moz-linear-gradient(top, $baseColor, $toColor);
 	background-image: -webkit-gradient(linear,left top,left bottom, color-stop(0, $baseColor),color-stop(1, $toColor));
 	background-image: linear-gradient(top,$baseColor, $toColor);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='$baseColor', EndColorStr='$toColor');
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=#{$baseColor}, endColorstr=#{$toColor},GradientType=0 );
 }
  
-@mixin trasition($property, $duration:0.3s, $function: ease-out){
+@mixin transition($property, $durations:0.3s, $function: ease-out){
 	 -moz-transition: $property $durations $function;
 	 -o-transition: $property $durations $function;
   	-webkit-transition: $property $durations $function;
@@ -51,4 +57,40 @@
 	-o-transform: scale($scale) rotate($rotate) translate($trans-x, $trans-y) skew($skew-x, $skew-y);
 	-ms-transform: scale($scale) rotate($rotate) translate($trans-x, $trans-y) skew($skew-x, $skew-y);
 	transform: scale($scale) rotate($rotate) translate($trans-x, $trans-y) skew($skew-x, $skew-y);
+}
+
+@mixin clearfix {
+    zoom:1;
+    &:before, &:after {
+        content: "\0020"; 
+        display: block; 
+        height: 0; 
+        overflow: hidden; 
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+@mixin boxsizing {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+@mixin mobileHeader($from: #181818, $to: #010101) {
+	display: block;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	@include gradient($from, $to);
+	border-top: 1px solid #9f9f9f;
+	border-bottom: 1px solid #6b6b6b;
+	color: $color;
+	font-family:"HelveticaNeueW01-75Bold";
+}
+
+@mixin reset {
+	margin: 0;
+	padding: 0;
 }
